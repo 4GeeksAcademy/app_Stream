@@ -1,10 +1,11 @@
-from pickle import load
+import pandas as pd
 import streamlit as st
 
-model = load(open("./models/model_parameters.csv", "rb"))
+model = pd.read_csv("./models/random_forest_classifier_default_42.sav")
 class_dict = {
     "0": "Introvertido",
     "1": "Extrovertido",
+    
     
 }
 
