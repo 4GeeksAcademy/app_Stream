@@ -1,7 +1,7 @@
 from pickle import load
 import streamlit as st
 
-model = load(open("./models/RandomForestClassifier_default_42.sav", "rb"))
+model = load(open("./models/model_parameters.csv", "rb"))
 class_dict = {
     "0": "Introvertido",
     "1": "Extrovertido",
@@ -23,9 +23,4 @@ if st.button("Predict"):
     pred_class = class_dict[prediction]
     st.write("Prediction:", pred_class)
 
-if st.button("Predict"):
-    raw_prediction = model.predict([[val1, val2, val3, val4, val5, val6, val7]])
-    prediction = str(raw_prediction[0])
-    pred_class = class_dict[prediction]
-    st.write("Raw Prediction:", raw_prediction)  # Imprimir la predicción cruda
-    st.write("Prediction:", pred_class)
+
