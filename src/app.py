@@ -1,27 +1,41 @@
 import pandas as pd
 import streamlit as st
 
-model = pd.read_csv("./models/random_forest_classifier_default_42.sav")
+# Cargar el modelo (asegúrate de que el archivo sea un modelo guardado correctamente)
+model = pd.read_pickle("./models/random_forest_classifier_default_42.sav")  # Cambié a pd.read_pickle para cargar el modelo
+
+# Diccionario de clases
 class_dict = {
-    "0": "Introvertido",
-    "1": "Extrovertido",
-    
-    
+    "0": "Alumno no admitido",
+    "1": "Alumno admitido",
 }
 
-st.title("Personalidad - Model prediction")
+# Título de la aplicación
+st.title("Admisión de Alumnos - Predicción del Modelo")
 
-val1 = st.slider("Apertura a nuevas experiencias", min_value = 1, max_value = 5, step = 1)
-val2 = st.slider("Responsabilidad", min_value = 1, max_value = 5, step = 1)
-val3 = st.slider("Extroversión", min_value = 1, max_value = 5, step = 1)
-val4 = st.slider("Amabilidad", min_value = 1, max_value = 5, step = 1)
-val5 = st.slider("Estabilidad emocional", min_value = 0, max_value = 1, step = 1)
-val6 = st.slider("Habilidades sociales", min_value = 1, max_value = 5, step = 1)
-val7 = st.slider("Energía y actividad", min_value = 1, max_value = 5, step = 1)
+# Ingreso de nombre
+name = st.text_input("Ingrese su Nombre:")
 
-if st.button("Predict"):
-    prediction = str(model.predict([[val1, val2, val3, val4, val5, val6, val7]])[0])
+# Ingreso de edad
+val2 = st.slider("Edad", min_value=18, max_value=22, step=1)
+
+# Ingreso de género
+val3 = st.slider("Género", min_value=0, max_value=1, step=1)
+
+# Selección de ciudad
+ciudades = ["Nueva York", "Los Ángeles", "Londres", "Madrid", "Tokio", "Buenos Aires", "Ciudad de México", "Sídney", "Berlín", "París"]
+val4 = st.selectbox("Ciudad", ciudades)
+
+# Ingreso de examen de admisión
+val5 = st.slider("Examen de admisión", min_value=6, max_value=10, step=1)
+
+# Ingreso de porcentaje de escuela secundaria
+val6 = st.slider("Porcentaje Escuela Secundaria", min_value=60, max_value=100, step=10)
+
+# Botón para realizar la predicción
+if st.button("Predecir"):
+    # Convertir la ciudad seleccionada a un índice o valor numérico si es necesario
+    ciudad_index = ciudades.index(val4)  # Obtener el índice de la ciudad seleccionada
+    prediction = str(model.predict([[name, val2, val3, ciudad_index, val5, val6]])[0])
     pred_class = class_dict[prediction]
-    st.write("Prediction:", pred_class)
-
-
+    st.write("Predicción:", pred_class)
