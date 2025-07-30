@@ -24,6 +24,9 @@ val3 = st.slider("Grupo Etario", min_value=1, max_value=9, step=1)
 if st.button("Predecir"):
     # Verificar que el nombre no esté vacío
     
-        prediction = str(model.predict([[val1, val2, val3]])[0])
-        st.write("Prediction:", prediction)
+    prediction = str(model.predict([[val1, val2, val3]])[0])
+    st.write("Prediction:", prediction)
+
+       
+
     
