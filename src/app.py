@@ -1,9 +1,10 @@
 import pandas as pd
 import streamlit as st
+from joblib import load
 
-# Cargar el modelo (asegúrate de que el archivo sea un modelo guardado correctamente)
-model = pd.read_pickle("./models/random_forest_regressor_default_42.sav")  # Cambié a pd.read_pickle para cargar el modelo
-
+# Cargar el modelo desde el archivo
+model = load("../models/random_forest_regressor_default_42.sav")
+print("✅ Modelo cargado exitosamente!")
 
 # Título de la aplicación
 st.title("HIV - Predicción del Modelo")
